@@ -1,5 +1,6 @@
 // initializing express (bringing express)
 const express = require("express");
+const colors = require("colors"); // to use colors
 
 // Creating the env files
 const dotenv = require("dotenv").config();
@@ -7,8 +8,14 @@ const dotenv = require("dotenv").config();
 //importing the errorhandler file
 const { errorHandler } = require("./middleWare/errorMiddleware");
 
+//importing connection function
+const connectDB = require("./config/db");
+
 // initializing the port || or operator
 const PORT = process.env.PORT || 5000;
+
+//connection to database
+connectDB()
 
 // initializing app with express
 const app = express();
@@ -17,7 +24,6 @@ const app = express();
 app.use(express.json());
 // to get url incoded data add this
 app.use(express.urlencoded({ extended: false }));
-
 
 // Creating Route
 app.get("/", (req, res) => {
