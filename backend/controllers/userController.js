@@ -51,7 +51,6 @@ const registerUser = asyncHandler(async (req, res) => {
 const loginUser = asyncHandler(async (req, res) => {
   //getting the data from the body
   const { name, email, password } = req.body;
-  console.log(email, password);
   //Finding the user
   const user = await User.findOne({ email });
 
@@ -69,14 +68,25 @@ const loginUser = asyncHandler(async (req, res) => {
   }
 });
 
+// Getting single user/current user, /api/users/me
+const getMe = asyncHandler(async (req, res) => {
+  const user = {
+    id: req.user._id,
+    email: req.user.email,
+    name: req.user.name,
+  };
+  res.status(200).json(user);
+});
+
 // Token Generator for JSON
 const generateToken = (id) => {
-  return jwt.sign({id}, process.env.JWT_SECRET, {
-    expiresIn : '30d'
-  })
+  return jwt.sign({ id }, process.env.JWT_SECRET, {
+    expiresIn: "30d",
+  });
 };
 
 module.exports = {
   registerUser,
   loginUser,
+  getMe,
 };

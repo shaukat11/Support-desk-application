@@ -3,13 +3,22 @@ const express = require("express");
 
 // calling the router to call other routes
 const router = express.Router();
-const { registerUser, loginUser } = require("../controllers/userController");
+const {
+  registerUser,
+  loginUser,
+  getMe,
+} = require("../controllers/userController");
 
-// the api/user route
-router.post("/", registerUser); 
+const { protect } = require("../middleWare/authMiddleware");
 
-// the api/user/login route
+// the api/users route
+router.post("/", registerUser);
+
+// the api/users/login route
 router.post("/login", loginUser);
+
+// the api/users/me
+router.get("/me", protect, getMe);
 
 // exporting the routers
 module.exports = router;
