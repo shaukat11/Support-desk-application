@@ -15,7 +15,7 @@ const connectDB = require("./config/db");
 const PORT = process.env.PORT || 5000;
 
 //connection to database
-connectDB()
+connectDB();
 
 // initializing app with express
 const app = express();
@@ -31,7 +31,8 @@ app.get("/", (req, res) => {
 });
 
 // Routes for all pages, to use the userRoutes we initilize we uses the use
-app.use("/api/users", require("./routes/userRoutes"));
+app.use("/api/users", require("./routes/userRoutes")); // route for userRoutes
+app.use("/api/tickets", require("./routes/ticketRoutes")); // route for ticketRoutes
 // using errorhandler
 app.use(errorHandler);
 

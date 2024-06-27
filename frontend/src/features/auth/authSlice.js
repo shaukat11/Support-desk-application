@@ -6,8 +6,8 @@ const user = JSON.parse(localStorage.getItem("user"));
 
 const initialState = {
   user: user ? user : null,
-  isError: false,
-  isSuccess: false,
+  isError: false, 
+  isSuccess: false, 
   isLoading: false,
   message: "",
 };
@@ -64,7 +64,7 @@ export const authSlice = createSlice({
   reducers: {
     // to reset the state if there is nothing recieved from the game
     reset: (state) => {
-      state.isLoading = false;
+      state.isLoading = false;    
       state.isSuccess = false;
       state.isError = false;
       state.message = "";
