@@ -39,7 +39,7 @@ function NewTicket() {
   const onSubmitTicketForm = (e) => {
     e.preventDefault();
     dispatch(createTicket({ product, description }));
-    navigate("/tickets")
+    navigate("/tickets");
   };
 
   if (isloading) {

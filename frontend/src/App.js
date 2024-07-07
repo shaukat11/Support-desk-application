@@ -9,6 +9,7 @@ import Login from "./Pages/Login";
 import Register from "./Pages/Register";
 import NewTicket from "./Pages/NewTicket"; // getting the normal ticket page
 import Tickets from "./Pages/Tickets";
+import Ticket from "./Pages/Ticket";
 
 function App() {
   return (
@@ -20,11 +21,18 @@ function App() {
             <Route path="/" element={<Home />} />
             <Route path="/login" element={<Login />} />
             <Route path="/Register" element={<Register />} />
-            <Route path="/new-ticket" element={<PrivateRoute />}>   {/* when creating private route use this type of nested struture*/}
+            <Route path="/new-ticket" element={<PrivateRoute />}>
+              {" "}
+              {/* when creating private route use this type of nested struture*/}
               <Route path="/new-ticket" element={<NewTicket />} />
             </Route>
-            <Route path="/tickets" element={<PrivateRoute />}>   {/* when creating private route use this type of nested struture*/}
+            <Route path="/tickets" element={<PrivateRoute />}>
+              {" "}
+              {/* when creating private route use this type of nested struture*/}
               <Route path="/tickets" element={<Tickets />} />
+            </Route>
+            <Route path="/ticket/:ticketId" element={<PrivateRoute />}>
+              <Route path="/ticket/:ticketId" element={<Ticket />} />
             </Route>
           </Routes>
         </div>

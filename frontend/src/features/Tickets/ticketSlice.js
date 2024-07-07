@@ -59,6 +59,50 @@ export const getTickets = createAsyncThunk(
   }
 );
 
+// Fetch single ticket
+export const getTicket = createAsyncThunk(
+  "ticket/getTicket",
+  async (ticketId, thuckAPI) => {
+    try {
+      const token = thuckAPI.getState().auth.user.token;
+      return await ticketService.getTicket(ticketId, token);
+    } catch (error) {
+      const message =
+        // Checking the place where we can find message in the backend
+        (error.response &&
+          error.response.data &&
+          error.response.data.message) ||
+        error.message ||
+        error.toString();
+
+      //rejected case need to be handled which will be delead by the extrareducers and reducers
+      return thuckAPI.rejectWithValue(message);
+    }
+  }
+);
+
+// Close Ticket
+export const closeTicket = createAsyncThunk(
+  "ticket/getTicket",
+  async (ticketId, thuckAPI) => {
+    try {
+      const token = thuckAPI.getState().auth.user.token;
+      return await ticketService.closeTicket(ticketId, token);
+    } catch (error) {
+      const message =
+        // Checking the place where we can find message in the backend
+        (error.response &&
+          error.response.data &&
+          error.response.data.message) ||
+        error.message ||
+        error.toString();
+
+      //rejected case need to be handled which will be delead by the extrareducers and reducers
+      return thuckAPI.rejectWithValue(message);
+    }
+  }
+);
+
 // to create slice which will help us to perfrom task
 export const ticketSlice = createSlice({
   name: "ticket",
@@ -93,6 +137,19 @@ export const ticketSlice = createSlice({
         state.isError = true;
         state.isloading = false;
         state.message = action.payload;
+      })
+      .addCase(getTicket.pending, (state) => {
+        state.isloading = true;
+      })
+      .addCase(getTicket.rejected, (state, action) => {
+        state.isError = true;
+        state.isloading = false;
+        state.message = action.payload;
+      })
+      .addCase(getTicket.fulfilled, (state, action) => {
+        state.isloading = false;
+        state.isSucess = true;
+        state.ticket = action.payload;
       });
   },
 });
